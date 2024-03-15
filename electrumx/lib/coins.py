@@ -4217,3 +4217,36 @@ class FerriteTestnet(Ferrite):
         'enode2.ferritecoin.org s t',
         'enode3.ferritecoin.org s t',
     ]
+class Hemis(Coin):
+    NAME = "Hemis"
+    SHORTNAME = "HMS"
+    NET = "mainnet"
+    XPUB_VERBYTES = bytes.fromhex("A0F2F5F3")
+    XPRV_VERBYTES = bytes.fromhex("A0F3F1FB")
+    GENESIS_HASH = '000000956c582b70df5d2c9b4b83d05b5331978e40d639739bdc96c29e156ce7'
+    P2PKH_VERBYTE = bytes.fromhex("28")
+    P2SH_VERBYTE = bytes.fromhex("0D")
+    WIF_BYTE = bytes.fromhex("D4")
+    DESERIALIZER = lib_tx.DeserializerPIVX
+    TX_COUNT_HEIGHT = 569399
+    TX_COUNT = 2157510
+    TX_PER_BLOCK = 1
+    STATIC_BLOCK_HEADERS = False
+    RPC_PORT = 49165
+    REORG_LIMIT = 100
+    EXPANDED_HEADER = 112
+    ZEROCOIN_START_HEIGHT = 0
+    ZEROCOIN_END_HEIGHT = 2153200
+    ZEROCOIN_BLOCK_VERSION = 4
+    SAPLING_START_HEIGHT = 500
+
+    @classmethod
+    def static_header_len(cls, height):
+        '''Given a header height return its length.'''
+            return cls.EXPANDED_HEADER
+
+    @classmethod
+    def header_hash(cls, header):
+        '''Given a header return the hash.'''
+        import quark_hash
+        return quark_hash.getPoWHash(header)
