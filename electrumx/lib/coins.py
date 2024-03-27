@@ -4235,18 +4235,49 @@ class Hemis(Coin):
     RPC_PORT = 49165
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
-    ZEROCOIN_START_HEIGHT = 0
-    ZEROCOIN_END_HEIGHT = 2153200
-    ZEROCOIN_BLOCK_VERSION = 4
-    SAPLING_START_HEIGHT = 500
+    SAPLING_START_HEIGHT = 501
+
 
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
+        if (height >= cls.SAPLING_START_HEIGHT):
             return cls.EXPANDED_HEADER
+        else:
+            return cls.BASIC_HEADER_SIZE
 
     @classmethod
     def header_hash(cls, header):
         '''Given a header return the hash.'''
         import quark_hash
         return quark_hash.getPoWHash(header)
+
+
+class HemisTest(Hemis):
+    NAME = "tHemis"
+    SHORTNAME = "tHMS"
+    NET = "testnet"
+    XPUB_VERBYTES = bytes.fromhex("3a8061a0")
+    XPRV_VERBYTES = bytes.fromhex("3a805837")
+    GENESIS_HASH = '000000798b274f80ef80da249806ed8d86dec9338a58b34073b7014096e3d0c5'
+    P2PKH_VERBYTE = bytes.fromhex("8B")
+    P2SH_VERBYTE = bytes.fromhex("13")
+    WIF_BYTE = bytes.fromhex("EF")
+    DESERIALIZER = lib_tx.DeserializerPIVX
+    TX_COUNT_HEIGHT = 569399
+    TX_COUNT = 2157510
+    TX_PER_BLOCK = 1
+    RPC_PORT = 51475
+    REORG_LIMIT = 100
+    EXPANDED_HEADER = 112
+
+
+
+    @classmethod
+    def static_header_len(cls, height):
+        '''Given a header height return its length.'''
+        if (height >= cls.SAPLING_START_HEIGHT):
+            return cls.EXPANDED_HEADER
+        else:
+            return cls.BASIC_HEADER_SIZE
+
