@@ -4253,7 +4253,7 @@ class Hemis(Coin):
         return quark_hash.getPoWHash(header)
 
 
-class HemisTest(Hemis):
+class HemisTestnet(Hemis):
     NAME = "tHemis"
     SHORTNAME = "tHMS"
     NET = "testnet"
