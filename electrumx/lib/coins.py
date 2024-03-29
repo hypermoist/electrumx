@@ -4252,6 +4252,7 @@ class Hemis(Coin):
     def header_hash(cls, header):
         logger = logging.getLogger(__name__)
         version, = util.unpack_le_uint32_from(header)
+        logger.info(f'Header length: {len(header)}')
 
         if version >= 4:
             logger.info('Using super().header_hash')
