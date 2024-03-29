@@ -4235,7 +4235,7 @@ class Hemis(Coin):
     RPC_PORT = 49165
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
-    SAPLING_START_HEIGHT = 501
+    SAPLING_START_HEIGHT = 502
     BLOCK_VERSION = 1
 
     @classmethod
