@@ -9,7 +9,6 @@
 '''Block prefetcher and chain processor.'''
 
 import binascii
-
 import asyncio
 import time
 from typing import Sequence, Tuple, List, Callable, Optional, TYPE_CHECKING, Type
@@ -228,7 +227,6 @@ class BlockProcessor:
         '''
         if not raw_blocks:
             return
-
         first = self.height + 1
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
@@ -236,10 +234,18 @@ class BlockProcessor:
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
 
-        # Debugging statements
-        self.logger.debug('Headers: %s', [binascii.hexlify(header).decode('utf-8') for header in headers])
-        self.logger.debug('Previous Hashes: %s', [binascii.hexlify(prevhash).decode('utf-8') for prevhash in hprevs])
-        self.logger.debug('Chain: %s', [binascii.hexlify(hash).decode('utf-8') for hash in chain])
+        # Debugging
+        self.logger.debug('Headers:')
+        for header in headers:
+            self.logger.debug(binascii.hexlify(header).decode('utf-8'))
+
+        self.logger.debug('Previous Hashes:')
+        for prevhash in hprevs:
+            self.logger.debug(binascii.hexlify(prevhash).decode('utf-8'))
+
+        self.logger.debug('Chain Hashes:')
+        for ch in chain:
+            self.logger.debug(binascii.hexlify(ch).decode('utf-8'))
 
         if hprevs == chain:
             start = time.monotonic()
@@ -254,18 +260,16 @@ class BlockProcessor:
                 await self.notifications.on_block(self.touched, self.height)
             self.touched = set()
         elif hprevs[0] != chain[0]:
+            await self.reorg_chain()
+        else:
             # It is probably possible but extremely rare that what
             # bitcoind returns doesn't form a chain because it
             # reorg-ed the chain as it was processing the batched
             # block hash requests.  Should this happen it's simplest
             # just to reset the prefetcher and try again.
             self.logger.warning('daemon blocks do not form a chain; '
-                                'resetting the prefetcher. Header: %s, Previous Hash: %s, Chain Hash: %s',
-                                binascii.hexlify(headers[0]).decode('utf-8'),
-                                binascii.hexlify(hprevs[0]).decode('utf-8'),
-                                binascii.hexlify(chain[0]).decode('utf-8'))
+                                'resetting the prefetcher')
             await self.prefetcher.reset_height(self.height)
-
 
     async def reorg_chain(self, count=None):
         '''Handle a chain reorganisation.
