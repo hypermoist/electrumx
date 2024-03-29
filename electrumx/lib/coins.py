@@ -4235,8 +4235,8 @@ class Hemis(Coin):
     RPC_PORT = 49165
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
-    SAPLING_START_HEIGHT = 503
-    BLOCK_VERSION = 7
+    SAPLING_START_HEIGHT = 501
+    BLOCK_VERSION = 1
 
     @classmethod
     def static_header_len(cls, height):
