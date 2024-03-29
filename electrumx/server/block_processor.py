@@ -8,7 +8,7 @@
 
 '''Block prefetcher and chain processor.'''
 
-
+import logging
 import asyncio
 import time
 from typing import Sequence, Tuple, List, Callable, Optional, TYPE_CHECKING, Type
@@ -227,9 +227,17 @@ class BlockProcessor:
         '''
         if not raw_blocks:
             return
+
         first = self.height + 1
-        blocks = [self.coin.block(raw_block, first + n)
-                  for n, raw_block in enumerate(raw_blocks)]
+        blocks = []
+        for n, raw_block in enumerate(raw_blocks):
+            try:
+                block = self.coin.block(raw_block, first + n)
+                blocks.append(block)
+            except AssertionError as e:
+                logging.error(f"Assertion error while processing block: {e}")
+                # Handle assertion error (optional)
+
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
@@ -249,7 +257,14 @@ class BlockProcessor:
         elif hprevs[0] != chain[0]:
             await self.reorg_chain()
         else:
-            pass
+            # It is probably possible but extremely rare that what
+            # bitcoind returns doesn't form a chain because it
+            # reorg-ed the chain as it was processing the batched
+            # block hash requests.  Should this happen it's simplest
+            # just to reset the prefetcher and try again.
+            self.logger.warning('daemon blocks do not form a chain; '
+                                'resetting the prefetcher')
+            await self.prefetcher.reset_height(self.height)
 
     async def reorg_chain(self, count=None):
         '''Handle a chain reorganisation.
