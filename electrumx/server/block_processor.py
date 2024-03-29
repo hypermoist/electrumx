@@ -8,6 +8,7 @@
 
 '''Block prefetcher and chain processor.'''
 
+import binascii
 
 import asyncio
 import time
@@ -257,7 +258,8 @@ class BlockProcessor:
             # just to reset the prefetcher and try again.
             self.logger.warning('daemon blocks do not form a chain; '
                             'resetting the prefetcher. Headers: %s, Previous Hashes: %s',
-                            [hex(h) for h in headers], [hex(prev) for prev in hprevs])
+                            [binascii.hexlify(h).decode('utf-8') for h in headers],
+                            [binascii.hexlify(prev).decode('utf-8') for prev in hprevs])
             await self.prefetcher.reset_height(self.height)
 
     async def reorg_chain(self, count=None):
