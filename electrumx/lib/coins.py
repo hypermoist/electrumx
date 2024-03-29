@@ -4254,7 +4254,7 @@ class Hemis(Coin):
         logger.info(f'Unpacked version: {version}')
         logger.info(f'Header length: {len(header)}')
 
-        if (cls.SAPLING_START_HEIGHT >= 501):
+        if (cls.SAPLING_START_HEIGHT <= 501):
             logger.info('Using super().header_hash')
             return super().header_hash(header)
         else:
