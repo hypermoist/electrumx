@@ -236,6 +236,11 @@ class BlockProcessor:
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
 
+        # Debugging statements
+        self.logger.debug('Headers: %s', [binascii.hexlify(header).decode('utf-8') for header in headers])
+        self.logger.debug('Previous Hashes: %s', [binascii.hexlify(prevhash).decode('utf-8') for prevhash in hprevs])
+        self.logger.debug('Chain: %s', [binascii.hexlify(hash).decode('utf-8') for hash in chain])
+
         if hprevs == chain:
             start = time.monotonic()
             await self.run_in_thread_with_lock(self.advance_blocks, blocks)
@@ -249,8 +254,6 @@ class BlockProcessor:
                 await self.notifications.on_block(self.touched, self.height)
             self.touched = set()
         elif hprevs[0] != chain[0]:
-            await self.reorg_chain()
-        else:
             # It is probably possible but extremely rare that what
             # bitcoind returns doesn't form a chain because it
             # reorg-ed the chain as it was processing the batched
@@ -262,6 +265,7 @@ class BlockProcessor:
                                 binascii.hexlify(hprevs[0]).decode('utf-8'),
                                 binascii.hexlify(chain[0]).decode('utf-8'))
             await self.prefetcher.reset_height(self.height)
+
 
     async def reorg_chain(self, count=None):
         '''Handle a chain reorganisation.
