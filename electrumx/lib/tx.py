@@ -189,16 +189,8 @@ class Deserializer:
 
     def _read_nbytes(self, n):
         cursor = self.cursor
-        end = cursor + n
-
-        # Debugging information
-        print(f"Debug: Reading {n} bytes from position {cursor} to {end} (binary length: {self.binary_length})")
-
-        # Check if reading beyond binary length
-        assert self.binary_length >= end, f"Attempted to read beyond binary length (cursor: {cursor}, end: {end}, binary length: {self.binary_length})"
-
-        # Update cursor and return bytes
-        self.cursor = end
+        self.cursor = end = cursor + n
+        assert self.binary_length >= end
         return self.binary[cursor:end]
 
     def _read_varbytes(self):
@@ -579,6 +571,11 @@ class DeserializerPIVX(Deserializer):
             self._read_outputs(),  # outputs
             self._read_le_uint32()  # locktime
         )
+
+        if version >= 3:  # >= sapling
+            if (tx_type > 0):
+                self.cursor += 2  # extraPayload
+
         return base_tx
 
 
