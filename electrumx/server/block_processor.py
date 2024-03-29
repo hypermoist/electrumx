@@ -227,7 +227,7 @@ class BlockProcessor:
         '''
         if not raw_blocks:
             return
-        print(f"Debug: Current block height: {self.height}")
+
         first = self.height + 1
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]

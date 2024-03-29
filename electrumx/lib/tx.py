@@ -579,18 +579,6 @@ class DeserializerPIVX(Deserializer):
             self._read_outputs(),  # outputs
             self._read_le_uint32()  # locktime
         )
-
-        if version >= 3:  # >= sapling
-            self._read_varint()
-            self.cursor += 8  # valueBalance
-            shielded_spend_size = self._read_varint()
-            self.cursor += shielded_spend_size * 384  # vShieldedSpend
-            shielded_output_size = self._read_varint()
-            self.cursor += shielded_output_size * 948  # vShieldedOutput
-            self.cursor += 64  # bindingSig
-            if (tx_type > 0):
-                self.cursor += 2  # extraPayload
-
         return base_tx
 
 
