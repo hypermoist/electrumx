@@ -552,6 +552,9 @@ class DeserializerPIVX(Deserializer):
     def read_tx(self):
         header = self._read_le_uint32()
         tx_type = header >> 16  # DIP2 tx type
+
+        print(f"Debug: Header: {header}, Tx Type: {tx_type}")  # Print header and tx type for debugging
+
         if tx_type:
             version = header & 0x0000ffff
         else:
@@ -577,7 +580,7 @@ class DeserializerPIVX(Deserializer):
             shielded_output_size = self._read_varint()
             self.cursor += shielded_output_size * 948  # vShieldedOutput
             self.cursor += 64  # bindingSig
-            if (tx_type > 0):
+            if tx_type > 0:
                 self.cursor += 2  # extraPayload
 
         return base_tx
