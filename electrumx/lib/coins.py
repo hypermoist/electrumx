@@ -4276,9 +4276,12 @@ class HemisTestnet(Hemis):
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
+        print(f"Debug: BASIC_HEADER_SIZE: {cls.BASIC_HEADER_SIZE}")  # Print the value of BASIC_HEADER_SIZE
+        print(f"Debug: EXPANDED_HEADER: {cls.EXPANDED_HEADER}")  # Print the value of EXPANDED_HEADER
+
         if height >= cls.SAPLING_START_HEIGHT:
-            print("Debug: Using EXPANDED_HEADER")  # Print a message indicating the use of EXPANDED_HEADER for debugging
+            print("Debug: Using EXPANDED_HEADER")
             return cls.EXPANDED_HEADER
         else:
-            print("Debug: Using BASIC_HEADER_SIZE")  # Print a message indicating the use of BASIC_HEADER_SIZE for debugging
+            print("Debug: Using BASIC_HEADER_SIZE")
             return cls.BASIC_HEADER_SIZE
