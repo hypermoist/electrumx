@@ -189,9 +189,16 @@ class Deserializer:
 
     def _read_nbytes(self, n):
         cursor = self.cursor
-        self.cursor = end = cursor + n
-        print(f"Debug: end: {end}")
-        assert self.binary_length >= end
+        end = cursor + n
+
+        # Debugging information
+        print(f"Debug: Reading {n} bytes from position {cursor} to {end} (binary length: {self.binary_length})")
+
+        # Check if reading beyond binary length
+        assert self.binary_length >= end, f"Attempted to read beyond binary length (cursor: {cursor}, end: {end}, binary length: {self.binary_length})"
+
+        # Update cursor and return bytes
+        self.cursor = end
         return self.binary[cursor:end]
 
     def _read_varbytes(self):
