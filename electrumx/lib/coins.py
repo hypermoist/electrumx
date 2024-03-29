@@ -29,6 +29,7 @@
 Anything coin-specific should go in this file and be subclassed where
 necessary for appropriate handling.
 '''
+import logging
 import re
 import struct
 from dataclasses import dataclass
