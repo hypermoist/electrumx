@@ -548,7 +548,6 @@ class TxPIVX:
     locktime: int
 
     def serialize(self):
-        print(f"Debug: Serializing TxPIVX - Version: {self.version}, Tx Type: {self.txtype}, Inputs: {len(self.inputs)}, Outputs: {len(self.outputs)}, Locktime: {self.locktime}")
         return b''.join((
             pack_le_uint16(self.version),
             pack_le_uint16(self.txtype),
