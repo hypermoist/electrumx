@@ -4249,10 +4249,14 @@ class Hemis(Coin):
 
     @classmethod
     def header_hash(cls, header):
+        logger = logging.getLogger(__name__)
         version, = util.unpack_le_uint32_from(header)
+
         if version >= 4:
+            logger.info('Using super().header_hash')
             return super().header_hash(header)
         else:
+            logger.info('Using quark_hash.getPoWHash')
             import quark_hash
             return quark_hash.getPoWHash(header)
 
