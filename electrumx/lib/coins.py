@@ -4254,7 +4254,7 @@ class Hemis(Coin):
         version, = util.unpack_le_uint32_from(header)
         logger.info(f'Header length: {len(header)}')
 
-        if version >= 4:
+        if version >= 6:
             logger.info('Using super().header_hash')
             return super().header_hash(header)
         else:
