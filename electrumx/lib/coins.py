@@ -4236,7 +4236,7 @@ class Hemis(Coin):
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
     SAPLING_START_HEIGHT = 505
-    BLOCK_VERSIon = 11
+    BLOCK_VERSION = 11
 
 
     @classmethod
