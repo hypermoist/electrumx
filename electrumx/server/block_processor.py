@@ -237,8 +237,8 @@ class BlockProcessor:
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
 
         # Debugging information: Print block headers and previous hashes
-        print(f"Debug: Block headers: {headers}")
-        print(f"Debug: Previous hashes: {hprevs}")
+        print(f"Debug: Block headers: {headers[0]}")
+        print(f"Debug: Previous hashes: {hprevs[0]}")
 
         if hprevs == chain:
             start = time.monotonic()
