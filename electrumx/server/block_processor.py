@@ -236,9 +236,13 @@ class BlockProcessor:
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
 
-        # Debugging information: Print block headers and previous hashes
-        print(f"Debug: Block headers: {headers[0]}")
-        print(f"Debug: Previous hashes: {hprevs[0]}")
+        # Convert headers and hprevs to hexadecimal strings
+        headers_hex = headers[0].hex()
+        hprevs_hex = hprevs[0].hex()
+
+        # Debugging information: Print only the first element of headers and hprevs lists
+        print(f"Debug: Block headers: {headers_hex}")
+        print(f"Debug: Previous hashes: {hprevs_hex}")
 
         if hprevs == chain:
             start = time.monotonic()
@@ -264,6 +268,7 @@ class BlockProcessor:
             self.logger.warning('daemon blocks do not form a chain; '
                                 'resetting the prefetcher')
             await self.prefetcher.reset_height(self.height)
+
 
     async def reorg_chain(self, count=None):
         '''Handle a chain reorganisation.
