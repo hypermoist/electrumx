@@ -4239,6 +4239,14 @@ class Hemis(Coin):
     BLOCK_VERSION = 11
 
     @classmethod
+    def static_header_len(cls, height):
+        '''Given a header height return its length.'''
+        if (height >= cls.SAPLING_START_HEIGHT):
+            return cls.EXPANDED_HEADER
+        else:
+            return cls.BASIC_HEADER_SIZE
+
+    @classmethod
     def header_hash(cls, header):
         import quark_hash
         print("Debug: Using Quark Hash")  # Print a message indicating the use of Quark Hash for debugging
@@ -4254,6 +4262,7 @@ class HemisTestnet(Hemis):
     P2PKH_VERBYTE = bytes.fromhex("8B")
     P2SH_VERBYTE = bytes.fromhex("13")
     WIF_BYTE = bytes.fromhex("EF")
+    DESERIALIZER = lib_tx.Deserializer
     DESERIALIZER = lib_tx.Deserializer
     TX_COUNT_HEIGHT = 569399
     TX_COUNT = 2157510
