@@ -8,7 +8,7 @@
 
 '''Block prefetcher and chain processor.'''
 
-import logging
+
 import asyncio
 import time
 from typing import Sequence, Tuple, List, Callable, Optional, TYPE_CHECKING, Type
@@ -229,15 +229,8 @@ class BlockProcessor:
             return
 
         first = self.height + 1
-        blocks = []
-        for n, raw_block in enumerate(raw_blocks):
-            try:
-                block = self.coin.block(raw_block, first + n)
-                blocks.append(block)
-            except AssertionError as e:
-                logging.error(f"Assertion error while processing block: {e}")
-                # Handle assertion error (optional)
-
+        blocks = [self.coin.block(raw_block, first + n)
+                  for n, raw_block in enumerate(raw_blocks)]
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
@@ -263,7 +256,8 @@ class BlockProcessor:
             # block hash requests.  Should this happen it's simplest
             # just to reset the prefetcher and try again.
             self.logger.warning('daemon blocks do not form a chain; '
-                                'resetting the prefetcher')
+                            'resetting the prefetcher. Headers: %s, Previous Hashes: %s',
+                            [hex(h) for h in headers], [hex(prev) for prev in hprevs])
             await self.prefetcher.reset_height(self.height)
 
     async def reorg_chain(self, count=None):
