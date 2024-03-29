@@ -29,6 +29,7 @@
 Anything coin-specific should go in this file and be subclassed where
 necessary for appropriate handling.
 '''
+import logging
 import re
 import struct
 from dataclasses import dataclass
@@ -4240,11 +4241,15 @@ class Hemis(Coin):
 
     @classmethod
     def static_header_len(cls, height):
-        '''Given a header height return its length.'''
-        if (height >= cls.SAPLING_START_HEIGHT):
-            return cls.EXPANDED_HEADER
+        logging.debug("Calculating static header length...")  # Log a message indicating the calculation of the static header length
+
+        if height >= cls.SAPLING_START_HEIGHT:
+            length = cls.EXPANDED_HEADER
         else:
-            return cls.BASIC_HEADER_SIZE
+            length = cls.BASIC_HEADER_SIZE
+
+        logging.debug(f"Static header length calculation complete: {length}")  # Log a message indicating the completion of the static header length calculation
+        return length
 
     @classmethod
     def header_hash(cls, header):
