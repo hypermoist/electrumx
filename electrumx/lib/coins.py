@@ -4251,11 +4251,14 @@ class Hemis(Coin):
     def header_hash(cls, header):
         '''Given a header return the hash.'''
         version, = struct.unpack('<I', header[:4])
+        print(f"Debug: Version: {version}")  # Print the version for debugging purposes
         if version >= cls.BLOCK_VERSION:
             return super().header_hash(header)
         else:
             import quark_hash
+            print("Debug: Using Quark Hash")  # Print a message indicating the use of Quark Hash for debugging
             return quark_hash.getPoWHash(header)
+
 
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
