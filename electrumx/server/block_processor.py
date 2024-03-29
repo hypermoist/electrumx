@@ -257,9 +257,9 @@ class BlockProcessor:
             # block hash requests.  Should this happen it's simplest
             # just to reset the prefetcher and try again.
             self.logger.warning('daemon blocks do not form a chain; '
-                            'resetting the prefetcher. Headers: %s, Previous Hashes: %s',
-                            [binascii.hexlify(h[0]).decode('utf-8') for h in headers],
-                            [binascii.hexlify(prev[0]).decode('utf-8') for prev in hprevs])
+                            'resetting the prefetcher. Header: %s, Previous Hash: %s',
+                            binascii.hexlify(headers[0]).decode('utf-8'),
+                            binascii.hexlify(hprevs[0]).decode('utf-8'))
             await self.prefetcher.reset_height(self.height)
 
     async def reorg_chain(self, count=None):
