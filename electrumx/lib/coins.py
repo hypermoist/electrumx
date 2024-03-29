@@ -4236,7 +4236,7 @@ class Hemis(Coin):
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
     SAPLING_START_HEIGHT = 503
-    BLOCK_VERSION = 11
+    BLOCK_VERSION = 1
 
     @classmethod
     def static_header_len(cls, height):
@@ -4248,20 +4248,10 @@ class Hemis(Coin):
 
     @classmethod
     def header_hash(cls, header):
-        print("Calculating header hash...")  # Print a message indicating the start of the header hash calculation
+        '''Given a header return the hash.'''
+        import quark_hash
+        return quark_hash.getPoWHash(header)
 
-        version, = struct.unpack('<I', header[:4])
-        if version >= cls.BLOCK_VERSION:
-            print("Using super() for header hash calculation")  # Print a message indicating the use of super() method
-            hash_result = super().header_hash(header)
-        else:
-            print("Using Quark Hash for header hash calculation")  # Print a message indicating the use of Quark Hash
-            import quark_hash
-            hash_result = quark_hash.getPoWHash(header)
-
-        print("Header hash calculation complete")  # Print a message indicating the completion of the header hash calculation
-        print("Header hash:", hash_result)  # Print the calculated header hash
-        return hash_result
 
 
 class HemisTestnet(Hemis):
