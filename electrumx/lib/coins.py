@@ -4235,7 +4235,8 @@ class Hemis(Coin):
     RPC_PORT = 49165
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
-    SAPLING_START_HEIGHT = 501
+    SAPLING_START_HEIGHT = 505
+    BLOCK_VERSIon = 11
 
 
     @classmethod
@@ -4249,12 +4250,14 @@ class Hemis(Coin):
     @classmethod
     def header_hash(cls, header):
         '''Given a header return the hash.'''
-        import quark_hash
-        return quark_hash.getPoWHash(header)
-
+        version, = struct.unpack('<I', header[:4])
+        if version >= cls.BLOCK_VERSION:
+            return super().header_hash(header)
+        else:
+            import quark_hash
+            return quark_hash.getPoWHash(header)
 
 class HemisTestnet(Hemis):
-    NAME = "tHemis"
     SHORTNAME = "tHMS"
     NET = "testnet"
     XPUB_VERBYTES = bytes.fromhex("3a8061a0")
