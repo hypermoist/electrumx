@@ -4260,6 +4260,7 @@ class HemisTestnet(Hemis):
     TX_PER_BLOCK = 1
     RPC_PORT = 51475
     REORG_LIMIT = 100
+    STATIC_BLOCK_HEADERS = True
     EXPANDED_HEADER = 112
 
 
