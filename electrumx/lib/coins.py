@@ -4238,15 +4238,6 @@ class Hemis(Coin):
     SAPLING_START_HEIGHT = 505
     BLOCK_VERSION = 11
 
-
-    @classmethod
-    def static_header_len(cls, height):
-        '''Given a header height return its length.'''
-        if (height >= cls.SAPLING_START_HEIGHT):
-            return cls.EXPANDED_HEADER
-        else:
-            return cls.BASIC_HEADER_SIZE
-
     @classmethod
     def header_hash(cls, header):
         import quark_hash
@@ -4272,13 +4263,3 @@ class HemisTestnet(Hemis):
     EXPANDED_HEADER = 112
 
 
-
-    @classmethod
-    def static_header_len(cls, height):
-        '''Given a header height return its length.'''
-        if height >= cls.SAPLING_START_HEIGHT:
-            print(f"Debug: EXPANDED_HEADER: {cls.EXPANDED_HEADER}")  # Print the value of EXPANDED_HEADER
-            return cls.EXPANDED_HEADER
-        else:
-            print(f"Debug: BASIC_HEADER_SIZE: {cls.BASIC_HEADER_SIZE}")  # Print the value of BASIC_HEADER_SIZE
-            return cls.BASIC_HEADER_SIZE
