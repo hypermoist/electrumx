@@ -4237,7 +4237,6 @@ class Hemis(Coin):
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
     SAPLING_START_HEIGHT = 501
-    BLOCK_VERSION = 1
 
     @classmethod
     def static_header_len(cls, height):
@@ -4255,7 +4254,7 @@ class Hemis(Coin):
         logger.info(f'Unpacked version: {version}')
         logger.info(f'Header length: {len(header)}')
 
-        if (version >= 11):
+        if (cls.SAPLING_START_HEIGHT >= 501):
             logger.info('Using super().header_hash')
             return super().header_hash(header)
         else:
