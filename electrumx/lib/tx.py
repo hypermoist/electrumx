@@ -129,9 +129,6 @@ class Deserializer:
         self.binary_length = len(binary)
         self.cursor = start
 
-        print(f"Debug: Binary Length: {self.binary_length}, Start: {start}")
-
-
     def read_tx(self):
         '''Return a deserialized transaction.'''
         return Tx(
