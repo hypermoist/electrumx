@@ -222,27 +222,17 @@ class BlockProcessor:
         return await asyncio.shield(run_in_thread_locked())
 
     async def check_and_advance_blocks(self, raw_blocks):
-        '''Process the list of raw blocks passed. Detects and handles reorgs.'''
+        '''Process the list of raw blocks passed.  Detects and handles
+        reorgs.
+        '''
         if not raw_blocks:
             return
-
-        # Debugging information: Print the number of raw blocks received
-        print(f"Debug: Number of raw blocks received: {len(raw_blocks)}")
-
         first = self.height + 1
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
-
-        # Convert headers and hprevs to hexadecimal strings
-        headers_hex = headers[0].hex()
-        hprevs_hex = hprevs[0].hex()
-
-        # Debugging information: Print only the first element of headers and hprevs lists
-        print(f"Debug: Block headers: {headers_hex}")
-        print(f"Debug: Previous hashes: {hprevs_hex}")
 
         if hprevs == chain:
             start = time.monotonic()
@@ -251,9 +241,8 @@ class BlockProcessor:
             if not self.db.first_sync:
                 s = '' if len(blocks) == 1 else 's'
                 blocks_size = sum(len(block) for block in raw_blocks) / 1_000_000
-                # Debugging information: Print processing time and block size
-                print(f"Debug: Processed {len(blocks):,d} block{s} size {blocks_size:.2f} MB "
-                      f"in {time.monotonic() - start:.1f}s")
+                self.logger.info(f'processed {len(blocks):,d} block{s} size {blocks_size:.2f} MB '
+                                 f'in {time.monotonic() - start:.1f}s')
             if self._caught_up_event.is_set():
                 await self.notifications.on_block(self.touched, self.height)
             self.touched = set()
@@ -263,12 +252,11 @@ class BlockProcessor:
             # It is probably possible but extremely rare that what
             # bitcoind returns doesn't form a chain because it
             # reorg-ed the chain as it was processing the batched
-            # block hash requests. Should this happen it's simplest
+            # block hash requests.  Should this happen it's simplest
             # just to reset the prefetcher and try again.
             self.logger.warning('daemon blocks do not form a chain; '
                                 'resetting the prefetcher')
             await self.prefetcher.reset_height(self.height)
-
 
     async def reorg_chain(self, count=None):
         '''Handle a chain reorganisation.
