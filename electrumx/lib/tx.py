@@ -562,6 +562,7 @@ class TxPIVX:
 class DeserializerPIVX(Deserializer):
     def read_tx(self):
         header = self._read_le_uint32()
+        print(f"Debug: Header: {header}, Tx Type: {header >> 16}")
         tx_type = header >> 16  # DIP2 tx type
         if tx_type:
             version = header & 0x0000ffff
