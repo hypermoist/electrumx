@@ -4259,8 +4259,8 @@ class Hemis(Coin):
             return super().header_hash(header)
         else:
             logger.info('Using quark_hash.getPoWHash')
-            import quark_hash
-            return quark_hash.getPoWHash(header)
+            import pivx_quark_hash
+            return pivx_quark_hash.getPoWHash(header)
 
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
