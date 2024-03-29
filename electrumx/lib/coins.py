@@ -4263,7 +4263,7 @@ class HemisTestnet(Hemis):
     P2PKH_VERBYTE = bytes.fromhex("8B")
     P2SH_VERBYTE = bytes.fromhex("13")
     WIF_BYTE = bytes.fromhex("EF")
-    DESERIALIZER = lib_tx.DeserializerPIVX
+    DESERIALIZER = lib_tx.Deserializer
     TX_COUNT_HEIGHT = 569399
     TX_COUNT = 2157510
     TX_PER_BLOCK = 1
