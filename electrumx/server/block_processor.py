@@ -8,7 +8,7 @@
 
 '''Block prefetcher and chain processor.'''
 
-import binascii
+
 import asyncio
 import time
 from typing import Sequence, Tuple, List, Callable, Optional, TYPE_CHECKING, Type
@@ -233,19 +233,7 @@ class BlockProcessor:
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
-
-        # Debugging
-        self.logger.debug('Headers:')
-        for header in headers:
-            self.logger.debug(binascii.hexlify(header).decode('utf-8'))
-
-        self.logger.debug('Previous Hashes:')
-        for prevhash in hprevs:
-            self.logger.debug(binascii.hexlify(prevhash).decode('utf-8'))
-
-        self.logger.debug('Chain Hashes:')
-        for ch in chain:
-            self.logger.debug(binascii.hexlify(ch).decode('utf-8'))
+        print(f'Block height: {self.height}')  # Print the block height
 
         if hprevs == chain:
             start = time.monotonic()
