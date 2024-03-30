@@ -4272,8 +4272,8 @@ class HemisTestnet(Hemis):
     P2SH_VERBYTE = bytes.fromhex("13")
     WIF_BYTE = bytes.fromhex("EF")
     DESERIALIZER = lib_tx.DeserializerPIVX
-    TX_COUNT_HEIGHT = 569399
-    TX_COUNT = 2157510
+    TX_COUNT_HEIGHT = 8000
+    TX_COUNT = 10000
     TX_PER_BLOCK = 1
     RPC_PORT = 51475
     REORG_LIMIT = 100
