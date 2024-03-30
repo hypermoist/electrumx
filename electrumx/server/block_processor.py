@@ -58,7 +58,7 @@ class Prefetcher:
         self.cache_size = 0
         self.min_cache_size = 10 * 1024 * 1024
         # This makes the first fetch be 10 blocks
-        self.ave_size = self.min_cache_size // 500
+        self.ave_size = self.min_cache_size // 1
         self.polling_delay = polling_delay_secs
 
     async def main_loop(self, bp_height):
