@@ -141,6 +141,7 @@ class Prefetcher:
                     blocks[0] = self.coin.genesis_block(blocks[0])
                     self.logger.info(f'verified genesis block with hash '
                                      f'{hex_hashes[0]}')
+                    self.logger.debug(f'Fuck a you{hex_hashes[1]}')
 
                 # Update our recent average block size estimate
                 size = sum(len(block) for block in blocks)
