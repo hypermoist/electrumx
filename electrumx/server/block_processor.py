@@ -228,6 +228,7 @@ class BlockProcessor:
         if not raw_blocks:
             return
         first = self.height + 1
+        # Initialize an empty list to store the blocks
         blocks = []
 
         # Iterate over each raw block in the list raw_blocks
@@ -235,21 +236,24 @@ class BlockProcessor:
             # Calculate the index of the block
             block_index = first + n
 
-            # Print debugging information
-            print(f"Processing raw block at index {n}: {raw_block}")
-            print(f"Block index: {block_index}")
+            # Print debugging information for the first entry only
+            if n == 0:
+                print(f"Processing raw block at index {n}: {raw_block}")
+                print(f"Block index: {block_index}")
 
             # Create a block object using the raw data and the calculated index
             block_object = self.coin.block(raw_block, block_index)
 
-            # Print debugging information
-            print(f"Created block object for index {n}: {block_object}")
+            # Print debugging information for the first entry only
+            if n == 0:
+                print(f"Created block object for index {n}: {block_object}")
 
             # Add the block object to the list of blocks
             blocks.append(block_object)
 
-            # Print debugging information
-            print(f"Block object added to the list of blocks: {blocks}")
+            # Print debugging information for the first entry only
+            if n == 0:
+                print(f"Block object added to the list of blocks: {blocks}")
 
         # Print final debugging information
         print("All raw blocks processed and converted to block objects.")
