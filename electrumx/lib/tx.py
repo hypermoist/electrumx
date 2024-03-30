@@ -563,7 +563,7 @@ class DeserializerPIVX(Deserializer):
             tx_type = 0
 
         base_tx = TxPIVX(
-            version,
+            self._read_le_int32(),  # version
             tx_type,
             self._read_inputs(),  # inputs
             self._read_outputs(),  # outputs
