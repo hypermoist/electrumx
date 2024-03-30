@@ -198,7 +198,7 @@ class BlockProcessor:
         self.headers = []
         self.tx_hashes = []
         self.undo_infos = []  # type: List[Tuple[Sequence[bytes], int]]
-        print(f'FUCK YOU{self.headers}')
+
         # UTXO cache
         self.utxo_cache = {}
         self.db_deletes = []
