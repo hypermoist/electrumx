@@ -228,11 +228,34 @@ class BlockProcessor:
         if not raw_blocks:
             return
         first = self.height + 1
-        blocks = [self.coin.block(raw_block, first + n)
-                  for n, raw_block in enumerate(raw_blocks)]
+        blocks = []
+
+        # Iterate over each raw block in the list raw_blocks
+        for n, raw_block in enumerate(raw_blocks):
+            # Calculate the index of the block
+            block_index = first + n
+
+            # Print debugging information
+            print(f"Processing raw block at index {n}: {raw_block}")
+            print(f"Block index: {block_index}")
+
+            # Create a block object using the raw data and the calculated index
+            block_object = self.coin.block(raw_block, block_index)
+
+            # Print debugging information
+            print(f"Created block object for index {n}: {block_object}")
+
+            # Add the block object to the list of blocks
+            blocks.append(block_object)
+
+            # Print debugging information
+            print(f"Block object added to the list of blocks: {blocks}")
+
+        # Print final debugging information
+        print("All raw blocks processed and converted to block objects.")
         headers = [block.header for block in blocks]
-        header_hex = headers[0].hex()
-        print("First Header (hex):", header_hex)
+        #header_hex = headers[0].hex()
+        #print("First Header (hex):", header_hex)
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
         #print("Chain:", [hash.hex() for hash in chain])
