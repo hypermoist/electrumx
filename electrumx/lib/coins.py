@@ -4256,11 +4256,11 @@ class Hemis(Coin):
 
         if (version >= cls.BLOCK_VERSION):
           #  logger.info('Using super().header_hash')
-            return super().header_hash(header)
-        else:
-           # logger.info('Using quark_hash.getPoWHash')
             import quark_hash
             return quark_hash.getPoWHash(header)
+        else:
+           # logger.info('Using quark_hash.getPoWHash')
+           return super().header_hash(header)
 
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
