@@ -234,7 +234,7 @@ class BlockProcessor:
 
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
-        print(f'Block {chain[0].hex()}')
+        print(f'Block {chain[1].hex()}')
         print(f'Block {hprevs[1].hex()}')
         if hprevs == chain:
             start = time.monotonic()
