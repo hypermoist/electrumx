@@ -231,7 +231,7 @@ class BlockProcessor:
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
         if blocks:
-            print(f"First raw block after processing: {blocks[0]}")
+            print(f"First raw block after processing: {blocks[1]}")
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
