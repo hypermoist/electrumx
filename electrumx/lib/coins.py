@@ -4241,7 +4241,7 @@ class Hemis(Coin):
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
-        print(f'Block Height: {height}')
+      #  print(f'Block Height: {height}')
         if (height >= cls.SAPLING_START_HEIGHT):
             return cls.EXPANDED_HEADER
         else:
@@ -4251,7 +4251,7 @@ class Hemis(Coin):
     @classmethod
     def header_hash(cls, header):
         version, = util.unpack_le_uint32_from(header)
-        print(f"Debug: Version extracted from header: {version}")
+       # print(f"Debug: Version extracted from header: {version}")
         if version < 7:
             import quark_hash
             return quark_hash.getPoWHash(header)
