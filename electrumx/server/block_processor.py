@@ -9,6 +9,7 @@
 '''Block prefetcher and chain processor.'''
 
 
+import binascii
 import asyncio
 import time
 from typing import Sequence, Tuple, List, Callable, Optional, TYPE_CHECKING, Type
@@ -230,11 +231,9 @@ class BlockProcessor:
         first = self.height + 1
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
-        print(f'{self.height}')
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
-        chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
-        print(f'Block height: {self.height}')  # Print the block height
+        chain = [self.tip] + [binascii.hexlify(self.coin.header_hash(h)).decode('utf-8') for h in headers[:-1]]
         # Print the block hashes for the first 3 blocks
         for i in range(min(3, len(chain))):
             print(f'Block {i+1} hash: {chain[i].hex()}')
