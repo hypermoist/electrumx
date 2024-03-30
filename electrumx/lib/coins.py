@@ -4237,7 +4237,7 @@ class Hemis(Coin):
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
     SAPLING_START_HEIGHT = 502
-    BLOCK_VERSION = 6
+    BLOCK_VERSION = 3
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
