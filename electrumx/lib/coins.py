@@ -4257,11 +4257,7 @@ class Hemis(Coin):
             return quark_hash.getPoWHash(header)
         else:
             return super().header_hash(header)
-    @classmethod
-    def max_fetch_blocks(cls, height):
-        if height < 130000:
-            return 50
-        return 100
+
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
     NET = "testnet"
@@ -4271,7 +4267,7 @@ class HemisTestnet(Hemis):
     P2PKH_VERBYTE = bytes.fromhex("8B")
     P2SH_VERBYTE = bytes.fromhex("13")
     WIF_BYTE = bytes.fromhex("EF")
-    DESERIALIZER = lib_tx.Deserializer
+    DESERIALIZER = lib_tx.DeserializerPIVX
     TX_COUNT_HEIGHT = 8000
     TX_COUNT = 10000
     TX_PER_BLOCK = 1
