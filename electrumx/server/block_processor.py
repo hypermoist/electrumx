@@ -225,6 +225,7 @@ class BlockProcessor:
         '''Process the list of raw blocks passed.  Detects and handles
         reorgs.
         '''
+        print(f'{self.coin.header_prevhash()}')
         if not raw_blocks:
             return
         first = self.height + 1
