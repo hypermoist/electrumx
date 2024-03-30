@@ -4237,7 +4237,7 @@ class Hemis(Coin):
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
     SAPLING_START_HEIGHT = 502
-
+    BLOCK_VERSION = 6
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
@@ -4254,7 +4254,7 @@ class Hemis(Coin):
         logger.info(f'Unpacked version: {version}')
         logger.info(f'Header length: {len(header)}')
 
-        if (version >= 7 ):
+        if (version >= cls.BLOCK_VERSION):
             logger.info('Using super().header_hash')
             return super().header_hash(header)
         else:
@@ -4271,7 +4271,7 @@ class HemisTestnet(Hemis):
     P2PKH_VERBYTE = bytes.fromhex("8B")
     P2SH_VERBYTE = bytes.fromhex("13")
     WIF_BYTE = bytes.fromhex("EF")
-    DESERIALIZER = lib_tx.Deserializer
+    DESERIALIZER = lib_tx.DeserializerPIVX
     TX_COUNT_HEIGHT = 8000
     TX_COUNT = 10000
     TX_PER_BLOCK = 1
