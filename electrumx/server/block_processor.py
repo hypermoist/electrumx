@@ -231,10 +231,9 @@ class BlockProcessor:
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
         headers = [block.header for block in blocks]
-        print(f'What the fuck you are doing{blocks[0]}')
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
-        print(f'Block height: {self.height}')  # Print the block height
+        print(f'Block height: {self.height}{self.coin.header_hash}')  # Print the block height
         # Print the block hashes for the first 3 blocks
         for i in range(min(3, len(chain))):
             print(f'Block {i+1} hash: {chain[i].hex()}')
