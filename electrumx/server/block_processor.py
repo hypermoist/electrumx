@@ -244,7 +244,7 @@ class BlockProcessor:
             if not self.db.first_sync:
                 s = '' if len(blocks) == 1 else 's'
                 blocks_size = sum(len(block) for block in raw_blocks) / 1_000_000
-                self.logger.info(f'processed {len(blocks):,d} block{s} size {blocks_size:.2f} MB '
+                self.logger.debug(f'processed {len(blocks):,d} block{s} size {blocks_size:.2f} MB '
                                  f'in {time.monotonic() - start:.1f}s')
             if self._caught_up_event.is_set():
                 await self.notifications.on_block(self.touched, self.height)
