@@ -569,7 +569,7 @@ class DeserializerPIVX(Deserializer):
             self._read_le_uint32()  # locktime
         )
 
-        if version >= 3:  # >= sapling
+        if version >= 7:  # >= sapling
             if (tx_type > 0):
                 self.cursor += 2  # extraPayload
 

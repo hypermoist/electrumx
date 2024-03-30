@@ -225,7 +225,6 @@ class BlockProcessor:
         '''Process the list of raw blocks passed.  Detects and handles
         reorgs.
         '''
-        print(f'{raw_blocks}')
         if not raw_blocks:
             return
         first = self.height + 1
