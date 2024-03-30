@@ -84,7 +84,7 @@ class Prefetcher:
         self.blocks = []
         self.cache_size = 0
         self.refill_event.set()
-        print(f'prefetched blocks: {blocks}')
+        print(f'prefetched blocks: {blocks[0]}')
         return blocks
 
     async def reset_height(self, height):
