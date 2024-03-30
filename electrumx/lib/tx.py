@@ -553,7 +553,7 @@ class DeserializerPIVX(Deserializer):
         header = self._read_le_uint32()
         tx_type = header >> 16  # DIP2 tx type
         if tx_type:
-            version = header & 0x0000ffff
+            version = header
         else:
             version = header
 
@@ -563,7 +563,7 @@ class DeserializerPIVX(Deserializer):
             tx_type = 0
 
         base_tx = TxPIVX(
-            self._read_le_int32(),  # version
+            version,
             tx_type,
             self._read_inputs(),  # inputs
             self._read_outputs(),  # outputs
