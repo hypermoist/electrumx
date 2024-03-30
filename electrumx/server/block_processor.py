@@ -228,12 +228,9 @@ class BlockProcessor:
         if not raw_blocks:
             return
         first = self.height + 1
-        blocks = []
-        for n, raw_block in enumerate(raw_blocks):
-            block_height = first + n
-            block = self.coin.block(raw_block, block_height)
-            blocks.append(block)
-            print(f"Debug: Processed block {block_height}: {block[0].hex()}")  # or use logger.debug() for logging
+        blocks = [self.coin.block(raw_block, first + n)
+                  for n, raw_block in enumerate(raw_blocks)]
+        print('Advanced blocks:', blocks)
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
