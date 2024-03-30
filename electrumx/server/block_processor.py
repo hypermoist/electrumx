@@ -233,7 +233,7 @@ class BlockProcessor:
             block_height = first + n
             block = self.coin.block(raw_block, block_height)
             blocks.append(block)
-            print(f"Debug: Processed block {block_height}: {block}")  # or use logger.debug() for logging
+            print(f"Debug: Processed block {block_height[0]}: {block[0].hex()}")  # or use logger.debug() for logging
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
