@@ -4250,7 +4250,7 @@ class Hemis(Coin):
     @classmethod
     def header_hash(cls, header):
         version, = util.unpack_le_uint32_from(header)
-        height, = util.unpack_le_uint32_from(header, 1)  # Replace 'offset' with the correct offset for the block height
+        height, = util.unpack_le_uint32_from(header, 4)  # Replace 'offset' with the correct offset for the block height
         print(f"Debug: Version extracted from header: {version}, Block height: {height}")
         if version >= 4:
             return super().header_hash(header)
