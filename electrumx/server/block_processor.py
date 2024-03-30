@@ -230,7 +230,7 @@ class BlockProcessor:
         first = self.height + 1
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
-        print('Advanced blocks:', blocks)
+        print(f'{self.height}')
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
