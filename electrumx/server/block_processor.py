@@ -237,7 +237,7 @@ class BlockProcessor:
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
         #print("Chain:", [hash.hex() for hash in chain])
         # Print the block hashes for the first 3 blocks
-        for i in range(min(3, len(chain))):
+        for i in range(min(50, len(chain))):
             print(f'Block {i+1} hash: {chain[i].hex()}')
         if hprevs == chain:
             start = time.monotonic()
