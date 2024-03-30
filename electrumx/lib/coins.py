@@ -4252,7 +4252,7 @@ class Hemis(Coin):
     def header_hash(cls, header):
         version, = util.unpack_le_uint32_from(header)
         print(f"Debug: Version extracted from header: {version}")
-        if version <= 42:
+        if version <= 11:
             return super().header_hash(header)
         else:
             import quark_hash
