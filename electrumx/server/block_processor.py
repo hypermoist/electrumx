@@ -198,7 +198,7 @@ class BlockProcessor:
         self.headers = []
         self.tx_hashes = []
         self.undo_infos = []  # type: List[Tuple[Sequence[bytes], int]]
-
+        print(f'{self.headers[0].hex}')
         # UTXO cache
         self.utxo_cache = {}
         self.db_deletes = []
@@ -225,7 +225,6 @@ class BlockProcessor:
         '''Process the list of raw blocks passed.  Detects and handles
         reorgs.
         '''
-        print(f'raw_blocks: {raw_blocks[0]}')
         if not raw_blocks:
             return
         first = self.height + 1
