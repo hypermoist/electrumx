@@ -4259,8 +4259,8 @@ class Hemis(Coin):
             return super().header_hash(header)
         else:
             logger.info('Using quark_hash.getPoWHash')
-            import pivx_quark_hash
-            return pivx_quark_hash.getPoWHash(header)
+            import quark_hash
+            return quark_hash.getPoWHash(header)
 
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
@@ -4271,7 +4271,7 @@ class HemisTestnet(Hemis):
     P2PKH_VERBYTE = bytes.fromhex("8B")
     P2SH_VERBYTE = bytes.fromhex("13")
     WIF_BYTE = bytes.fromhex("EF")
-    DESERIALIZER = lib_tx.DeserializerPIVX
+    DESERIALIZER = lib_tx.Deserializer
     TX_COUNT_HEIGHT = 8000
     TX_COUNT = 10000
     TX_PER_BLOCK = 1
@@ -4279,5 +4279,14 @@ class HemisTestnet(Hemis):
     REORG_LIMIT = 100
     STATIC_BLOCK_HEADERS = False
     EXPANDED_HEADER = 112
+    SAPLING_START_HEIGHT = 502
+
+    @classmethod
+    def static_header_len(cls, height):
+        '''Given a header height return its length.'''
+        if (height >= cls.SAPLING_START_HEIGHT):
+            return cls.EXPANDED_HEADER
+        else:
+            return cls.BASIC_HEADER_SIZE
 
 
