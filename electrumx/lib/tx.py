@@ -559,6 +559,7 @@ class DeserializerPIVX(Deserializer):
 
         if tx_type and version < 3:
             version = header
+            print(f'Read version {version}')
             tx_type = 0
 
         base_tx = TxPIVX(
