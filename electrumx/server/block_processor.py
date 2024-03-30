@@ -235,7 +235,7 @@ class BlockProcessor:
         #print("First Header (hex):", header_hex)
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
-        print(f'Block {chain[0]}: {chain[-1]}')
+        print(f'Block {chain[0].hex()}')
         #print("Chain:", [hash.hex() for hash in chain])
         # Print the block hashes for the first 3 blocks
     #    for i in range(min(3, len(chain))):
