@@ -231,8 +231,8 @@ class BlockProcessor:
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
         headers = [block.header for block in blocks]
-        headers_hex = [header.hex() for header in headers]
-        print("Headers (hex):", headers_hex)
+        header_hex = headers[0].hex()
+        print("First Header (hex):", header_hex)
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
         #print("Chain:", [hash.hex() for hash in chain])
