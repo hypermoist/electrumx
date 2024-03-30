@@ -4247,9 +4247,14 @@ class Hemis(Coin):
             return cls.BASIC_HEADER_SIZE
 
 
+    @classmethod
     def header_hash(cls, header):
-        '''Given a header return hash'''
-        return double_sha256(header)
+        version, = util.unpack_le_uint32_from(header)
+        if version >= 4:
+            return super().header_hash(header)
+        else:
+            import quark_hash
+            return quark_hash.getPoWHash(header)
 
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
