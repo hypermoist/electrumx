@@ -4252,11 +4252,11 @@ class Hemis(Coin):
     def header_hash(cls, header):
         version, = util.unpack_le_uint32_from(header)
         print(f"Debug: Version extracted from header: {version}")
-        if version > 12:
-            return super().header_hash(header)
-        else:
+        if version < 7:
             import quark_hash
             return quark_hash.getPoWHash(header)
+        else:
+            return super().header_hash(header)
 
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
