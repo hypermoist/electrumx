@@ -571,7 +571,7 @@ class DeserializerPIVX(Deserializer):
 
         if version >= 7:  # >= sapling
             if (tx_type > 0):
-                self.cursor += 2  # extraPayload
+                pass
 
         return base_tx
 
