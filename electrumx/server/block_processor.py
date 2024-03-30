@@ -231,7 +231,7 @@ class BlockProcessor:
         blocks = [self.coin.block(raw_block, first + n)
                   for n, raw_block in enumerate(raw_blocks)]
         headers = [block.header for block in blocks]
-        print(f'The fuck is going on: {blocks[1].hex()}')
+        print(f'The fuck is going on: {first[0]}')
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
         print(f'Block height: {self.height}')  # Print the block height
