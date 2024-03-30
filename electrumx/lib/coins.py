@@ -4257,7 +4257,11 @@ class Hemis(Coin):
             return quark_hash.getPoWHash(header)
         else:
             return super().header_hash(header)
-
+    @classmethod
+    def max_fetch_blocks(cls, height):
+        if height < 130000:
+            return 50
+        return 100
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
     NET = "testnet"
