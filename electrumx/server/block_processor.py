@@ -140,7 +140,7 @@ class Prefetcher:
                 if first == 0:
                     blocks[0] = self.coin.genesis_block(blocks[0])
                     self.logger.info(f'verified genesis block with hash '
-                                     f'{hex_hashes[0]}, {hex_hashes[1]}')
+                                     f'{hex_hashes[0]}')
 
                 # Update our recent average block size estimate
                 size = sum(len(block) for block in blocks)
@@ -228,8 +228,12 @@ class BlockProcessor:
         if not raw_blocks:
             return
         first = self.height + 1
-        blocks = [self.coin.block(raw_block, first + n)
-                  for n, raw_block in enumerate(raw_blocks)]
+        blocks = []
+        for n, raw_block in enumerate(raw_blocks):
+            block_height = first + n
+            block = self.coin.block(raw_block, block_height)
+            blocks.append(block)
+            print(f"Debug: Processed block {block_height}: {block}")  # or use logger.debug() for logging
         headers = [block.header for block in blocks]
         hprevs = [self.coin.header_prevhash(h) for h in headers]
         chain = [self.tip] + [self.coin.header_hash(h) for h in headers[:-1]]
