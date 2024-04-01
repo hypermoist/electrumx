@@ -4275,7 +4275,7 @@ class HemisTestnet(Hemis):
     REORG_LIMIT = 100
     STATIC_BLOCK_HEADERS = False
     EXPANDED_HEADER = 112
-    SAPLING_START_HEIGHT = 502
+    SAPLING_START_HEIGHT = 251
 
 
     @classmethod
