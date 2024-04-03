@@ -4252,7 +4252,7 @@ class Hemis(Coin):
     def header_hash(cls, header):
         version, = util.unpack_le_uint32_from(header)
         print(f"Debug: Version extracted from header: {version}")
-        if version < 7:
+        if version <= 7:
             import quark_hash
             return quark_hash.getPoWHash(header)
         else:
@@ -4275,7 +4275,7 @@ class HemisTestnet(Hemis):
     REORG_LIMIT = 100
     STATIC_BLOCK_HEADERS = False
     EXPANDED_HEADER = 112
-    SAPLING_START_HEIGHT = 501
+    SAPLING_START_HEIGHT = 500
 
 
     @classmethod
