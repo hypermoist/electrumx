@@ -4281,7 +4281,7 @@ class HemisTestnet(Hemis):
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
-        if (height >= cls.SAPLING_START_HEIGHT):
+        if height >= cls.SAPLING_START_HEIGHT:
             return cls.EXPANDED_HEADER
         else:
             return cls.BASIC_HEADER_SIZE
