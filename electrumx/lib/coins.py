@@ -4263,7 +4263,7 @@ class HemisTestnet(Hemis):
     NET = "testnet"
     XPUB_VERBYTES = bytes.fromhex("3A8061A0")
     XPRV_VERBYTES = bytes.fromhex("3A805837")
-    GENESIS_HASH = '0000006a9c02bf334a2b0e3cd6dabef27e1b5818e3906a2ba31b1ddac88818b2'
+    GENESIS_HASH = '000000798b274f80ef80da249806ed8d86dec9338a58b34073b7014096e3d0c5'
     P2PKH_VERBYTE = bytes.fromhex("8B")
     P2SH_VERBYTE = bytes.fromhex("13")
     WIF_BYTE = bytes.fromhex("EF")
