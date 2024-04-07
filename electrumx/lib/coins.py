@@ -4280,9 +4280,9 @@ class HemisTestnet(Hemis):
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
         print(f'Block Height: {height}')
-        if height > cls.SAPLING_START_HEIGHT:
+        if height >= cls.SAPLING_START_HEIGHT:
             return cls.EXPANDED_HEADER
-        elif height < cls.SAPLING_START_HEIGHT:
+        elif height != cls.SAPLING_START_HEIGHT:
             return cls.BASIC_HEADER_SIZE
 
 
