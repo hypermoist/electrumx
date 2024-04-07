@@ -4246,6 +4246,8 @@ class Hemis(Coin):
       #  print(f'Block Height: {height}')
         if height >= cls.SAPLING_START_HEIGHT:
             return cls.EXPANDED_HEADER
+        else:
+            pass
 
 
 
