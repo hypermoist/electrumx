@@ -4236,16 +4236,21 @@ class Hemis(Coin):
     RPC_PORT = 49165
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
-    SAPLING_START_HEIGHT = 503
+    SAPLING_START_HEIGHT = 502
     BLOCK_VERSION = 7
+    BLOCK_NUMBER = 500
+    BLOCK_NUMBER2 = 501
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
       #  print(f'Block Height: {height}')
-        if (height >= cls.SAPLING_START_HEIGHT):
+        if height >= cls.SAPLING_START_HEIGHT:
             return cls.EXPANDED_HEADER
-        else:
+        elif height == cls.BLOCK_NUMBER:
+            return cls.EXPANDED_HEADER
+        elif height == cls.BLOCK_NUMBER2:
             return cls.BASIC_HEADER_SIZE
+
 
 
     @classmethod
@@ -4275,15 +4280,4 @@ class HemisTestnet(Hemis):
     REORG_LIMIT = 100
     STATIC_BLOCK_HEADERS = False
     EXPANDED_HEADER = 112
-    SAPLING_START_HEIGHT = 499
-
-
-    @classmethod
-    def static_header_len(cls, height):
-        '''Given a header height return its length.'''
-        if height >= cls.SAPLING_START_HEIGHT:
-            return cls.EXPANDED_HEADER
-        else:
-            return cls.BASIC_HEADER_SIZE
-
 
