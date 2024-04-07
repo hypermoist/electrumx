@@ -4244,11 +4244,11 @@ class Hemis(Coin):
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
       #  print(f'Block Height: {height}')
-        if height >= cls.SAPLING_START_HEIGHT:
+        if height == cls.SAPLING_START_HEIGHT:
             return cls.EXPANDED_HEADER
-        elif height == cls.BLOCK_NUMBER:
+        elif height >= cls.BLOCK_NUMBER:
             return cls.EXPANDED_HEADER
-        elif height == cls.BLOCK_NUMBER2:
+        elif height >= cls.BLOCK_NUMBER2:
             return cls.BASIC_HEADER_SIZE
 
 
