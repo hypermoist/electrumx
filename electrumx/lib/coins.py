@@ -4224,7 +4224,7 @@ class Hemis(Coin):
     NET = "mainnet"
     XPUB_VERBYTES = bytes.fromhex("A0F2F5F3")
     XPRV_VERBYTES = bytes.fromhex("A0F3F1FB")
-    GENESIS_HASH = '000000956c582b70df5d2c9b4b83d05b5331978e40d639739bdc96c29e156ce7'
+    GENESIS_HASH = '000000798b274f80ef80da249806ed8d86dec9338a58b34073b7014096e3d0c5'
     P2PKH_VERBYTE = bytes.fromhex("28")
     P2SH_VERBYTE = bytes.fromhex("0D")
     WIF_BYTE = bytes.fromhex("D4")
