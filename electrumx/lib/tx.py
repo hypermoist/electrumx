@@ -568,6 +568,7 @@ class DeserializerPIVX(Deserializer):
             self._read_outputs(),  # outputs
             self._read_le_uint32()  # locktime
         )
+
         if version >= 3:  # >= sapling
             self._read_varint()
             self.cursor += 8  # valueBalance
