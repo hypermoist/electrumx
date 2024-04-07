@@ -4275,6 +4275,9 @@ class HemisTestnet(Hemis):
     REORG_LIMIT = 100
     STATIC_BLOCK_HEADERS = False
     EXPANDED_HEADER = 112
+    BLOCK1 = 500
+    BLOCK2 = 501
+    SAPLING_START_HEIGHT = 502
 
 
     @classmethod
@@ -4282,7 +4285,9 @@ class HemisTestnet(Hemis):
         '''Given a header height return its length.'''
         if height >= cls.SAPLING_START_HEIGHT:
             return cls.EXPANDED_HEADER
-        else:
+        elif height > cls.BLOCK1:
+            return cls.EXPANDED_HEADER
+        elif height > cls.BLOCK2:
             return cls.BASIC_HEADER_SIZE
 
 
