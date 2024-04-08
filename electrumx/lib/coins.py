@@ -4280,15 +4280,15 @@ class HemisTestnet(Hemis):
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
         print("Debugging - Processing block height:", height)
-        if height == 500:
-            print("Debugging - Block 501: Expanded headers")
+        if height <= 499:
+            print("Debugging - Basic headers for blocks up to 499")
+            return cls.BASIC_HEADER_SIZE
+        elif height == 500:
+            print("Debugging - Block 500: Expanded headers")
             return cls.EXPANDED_HEADER
         elif height == 501:
-            print("Debugging - Block 502: Basic headers")
+            print("Debugging - Block 501: Basic headers")
             return cls.BASIC_HEADER_SIZE
-        elif height > 501:
-            print("Debugging - Block after 502: Expanded headers")
-            return cls.EXPANDED_HEADER
         else:
-            print("Debugging - Basic headers for all other blocks")
-            return cls.BASIC_HEADER_SIZE
+            print("Debugging - Block after 501: Expanded headers")
+            return cls.EXPANDED_HEADER
