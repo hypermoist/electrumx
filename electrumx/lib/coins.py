@@ -4275,16 +4275,15 @@ class HemisTestnet(Hemis):
     REORG_LIMIT = 10
     STATIC_BLOCK_HEADERS = False
     EXPANDED_HEADER = 112
-    START_HEIGHT = 499
-    END_HEIGHT = 501
-    SAPLING_START_HEIGHT = 503
 
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
-        if (height >= cls.START_HEIGHT and height < cls.END_HEIGHT) \
-                or (height >= cls.SAPLING_START_HEIGHT):
+        if height == 501:
+            return cls.EXPANDED_HEADER
+        elif height == 502:
+            return cls.BASIC_HEADER_SIZE
+        elif height > 502:
             return cls.EXPANDED_HEADER
         else:
             return cls.BASIC_HEADER_SIZE
-
