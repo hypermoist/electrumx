@@ -4251,13 +4251,10 @@ class Hemis(Coin):
     def header_hash(cls, header):
         '''Given a header return the hash.'''
         version, = struct.unpack('<I', header[:4])
-        print("Debugging - Block version:", version)
         if version < 5:
-            print("Debugging - Using Quark hash for block version:", version)
             import quark_hash
             return quark_hash.getPoWHash(header)
         else:
-            print("Debugging - Using superclass's header_hash method for block version:", version)
             return super().header_hash(header)
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
@@ -4282,14 +4279,10 @@ class HemisTestnet(Hemis):
         '''Given a header height return its length.'''
         print("Debugging - Processing block height:", height)
         if height <= 499:
-            print("Debugging - Basic headers for blocks up to 499")
             return cls.BASIC_HEADER_SIZE
         elif height == 500:
-            print("Debugging - Block 500: Expanded headers")
             return cls.EXPANDED_HEADER
         elif height == 501:
-            print("Debugging - Block 501: Basic headers")
             return cls.BASIC_HEADER_SIZE
         else:
-            print("Debugging - Block after 501: Expanded headers")
             return cls.EXPANDED_HEADER
