@@ -4253,6 +4253,7 @@ class Hemis(Coin):
         version, = struct.unpack('<I', header[:4])
         print("Debugging - Block version:", version)
         if version <= 6:
+            print("Debugging - Using Quark hash for block version:", version)
             import quark_hash
             return quark_hash.getPoWHash(header)
         else:
