@@ -4247,17 +4247,16 @@ class Hemis(Coin):
         else:
             return cls.BASIC_HEADER_SIZE
 
-
     @classmethod
     def header_hash(cls, header):
         '''Given a header return the hash.'''
         version, = struct.unpack('<I', header[:4])
+        print("Debugging - Block version:", version)
         if version >= cls.BLOCK_VERSION:
             return super().header_hash(header)
         else:
             import quark_hash
             return quark_hash.getPoWHash(header)
-
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
     NET = "testnet"
