@@ -4237,7 +4237,7 @@ class Hemis(Coin):
     REORG_LIMIT = 100
     EXPANDED_HEADER = 112
     SAPLING_START_HEIGHT = 502
-    BLOCK_VERSION = 7
+    BLOCK_VERSION = 11
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
@@ -4252,11 +4252,12 @@ class Hemis(Coin):
         '''Given a header return the hash.'''
         version, = struct.unpack('<I', header[:4])
         print("Debugging - Block version:", version)
-        if version >= cls.BLOCK_VERSION:
-            return super().header_hash(header)
-        else:
+        if version <= 6:
             import quark_hash
             return quark_hash.getPoWHash(header)
+        else:
+            return super().header_hash(header)
+
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
     NET = "testnet"
