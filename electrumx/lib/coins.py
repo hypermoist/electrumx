@@ -4257,8 +4257,8 @@ class Hemis(Coin):
             import quark_hash
             return quark_hash.getPoWHash(header)
         else:
+            print("Debugging - Using superclass's header_hash method for block version:", version)
             return super().header_hash(header)
-
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
     NET = "testnet"
