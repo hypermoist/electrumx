@@ -4273,7 +4273,7 @@ class HemisTestnet(Hemis):
     TX_COUNT = 10000
     TX_PER_BLOCK = 1
     RPC_PORT = 51475
-    REORG_LIMIT = 10
+    REORG_LIMIT = 1000
     STATIC_BLOCK_HEADERS = False
     EXPANDED_HEADER = 112
 
