@@ -51,7 +51,7 @@ import electrumx.server.block_processor as block_proc
 import electrumx.server.daemon as daemon
 from electrumx.server.session import (ElectrumX, DashElectrumX,
                                       SmartCashElectrumX, AuxPoWElectrumX,
-                                      NameIndexElectrumX, NameIndexAuxPoWElectrumX)
+                                      NameIndexElectrumX, NameIndexAuxPoWElectrumX, HemisElectrumX)
 
 
 @dataclass
@@ -4238,6 +4238,8 @@ class Hemis(Coin):
     EXPANDED_HEADER = 112
     SAPLING_START_HEIGHT = 502
     BLOCK_VERSION = 11
+    SESSIONCLS = HemisElectrumX
+
     @classmethod
     def static_header_len(cls, height):
         '''Given a header height return its length.'''
@@ -4256,10 +4258,11 @@ class Hemis(Coin):
         '''Given a header return the hash.'''
         version, = struct.unpack('<I', header[:4])
         if version < 5:
-            import quark_hash
-            return quark_hash.getPoWHash(header)
+            import algomodule
+            return algomodule._quark_hash(header)
         else:
             return super().header_hash(header)
+
 class HemisTestnet(Hemis):
     SHORTNAME = "tHMS"
     NET = "testnet"
